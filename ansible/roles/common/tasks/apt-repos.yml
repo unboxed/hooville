@@ -1,0 +1,10 @@
+---
+
+# - name: Download the hdp.list apt repo list file from Hortonworks
+#   get_url: url='http://public-repo-1.hortonworks.com/HDP/ubuntu12/2.x/updates/2.2.4.2/hdp.list' dest=/etc/apt/sources.list.d/hdp.list mode=0644
+
+- name: Hortonworks HDP Apt repositories are available to the system
+  apt_repository: repo='deb http://public-repo-1.hortonworks.com/HDP/ubuntu12/2.x/updates/2.2.4.2 HDP main' state=present update_cache=yes
+
+- name: Hortonworks HDP Utils Apt repository is available to the system
+  apt_repository: repo='deb http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/ubuntu12 HDP-UTILS main' state=present update_cache=yes

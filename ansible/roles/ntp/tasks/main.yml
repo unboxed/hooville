@@ -1,0 +1,9 @@
+---
+# tasks file for ntp
+
+- name: The ntp package is present
+  apt: name=ntp state=present
+
+- name: NTP is configured and running
+  template: src=etc/ntp.conf dest=/etc/ntp.conf owner=root group=root mode=0644
+  notify: restart ntp

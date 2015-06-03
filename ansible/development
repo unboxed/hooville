@@ -1,0 +1,19 @@
+# Development inventory
+[ntp-servers]
+hz-ntp-1.unboxedconsulting.com
+
+[consul-servers]
+hz-consul-1.unboxedconsulting.com
+hz-consul-2.unboxedconsulting.com
+hz-consul-3.unboxedconsulting.com
+
+[kerberos]
+hz-kdc-1.unboxedconsulting.com
+
+[hadoop-nodes]
+hz-hwhdp22-1.unboxedconsulting.com
+hz-hwhdp22-2.unboxedconsulting.com
+hz-hwhdp22-3.unboxedconsulting.com
+
+[hadoop-masters]
+hz-hwhdp22-master.unboxedconsulting.com

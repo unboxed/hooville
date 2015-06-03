@@ -1,0 +1,59 @@
+---
+# tasks file for common
+
+- name: ensure the apt cache is fresh
+  apt: update_cache=yes cache_valid_time=1200
+
+# Base packages
+- name: Ensuring default packages are present
+  apt: name={{ item }} state=present
+  with_items:
+    - apticron
+    - bind9-host
+    - bzip2
+    - bsdutils
+    - coreutils
+    - cron
+    - git-all
+    - gnupg
+    - iproute
+    - logrotate
+    - man-db
+    - manpages
+    - ntp
+    - ntpdate
+    - openjdk-7-jre-headless
+    - openssh-server
+    - openssl
+    - python3-software-properties
+    - psmisc
+    - rsyslog
+    - screen
+    - software-properties-common
+    - sudo
+    - tcpdump
+    - ufw
+    - ulogd
+    - unzip
+    - vim
+    - wget
+
+# Setup some default user accounts with SSH access on the target host.
+- name: ensure user {{default_user}} exists
+  user: name={{default_user}} comment="A Human Being" uid=1001 shell=/bin/bash groups=adm state=present createhome=yes append=yes
+
+- name: setup authorized_keys for default user
+  authorized_key: user={{default_user}} key=https://github.com/svenagnew.keys state=present
+
+- include: apt-repos.yml
+
+- name: Hadoop core packages installed
+  apt: name={{ item}} state=present force=yes
+  with_items:
+    - hadoop
+    - hadoop-hdfs
+    - libhdfs0
+    - hadoop-yarn
+    - hadoop-mapreduce
+    - hadoop-client
+    - openssl

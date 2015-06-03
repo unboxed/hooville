@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  version: 0.1
+  author: "svenagnew"
+  description: A base role to be run on all systems in the infrastructure
+  company: Unboxed Consulting (PTY) Ltd.
+  license: Copyright (c) 2015 Sven Agnew. All Rights Reserved.
+  min_ansible_version: 1.9.0
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty   # 14.04
+  categories:
+    - development
+    - system
+dependencies: []

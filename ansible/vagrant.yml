@@ -1,0 +1,16 @@
+---
+  - hosts: dev-vm
+    remote_user: vagrant
+    become: yes
+    become_user: root
+    roles:
+      - common
+      - ntp
+
+  - hosts: dev-vm
+    remote_user: vagrant
+    become: yes
+    become_user: root
+    tasks:
+      - name: Calculate configuration values using python helper script
+        raw: python /var/ubxd/hdp_manual_install_rpm_helper_files-2.2.4.2.2/scripts/yarn-utils.py -c 1 -m 4 -d 1 -k True

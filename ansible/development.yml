@@ -1,0 +1,8 @@
+---
+  - hosts: ntp-servers
+    become: yes
+    become_user: root
+    roles:
+      - common
+      - ntp
+    tags: ntp

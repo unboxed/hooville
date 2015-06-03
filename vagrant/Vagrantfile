@@ -1,0 +1,75 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here.For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box_download_insecure
+  config.vm.box = "ubuntu-14.04.02-x64-lts"
+  config.vm.box_url = 'https://atlas.ideamachine.co.za/vagrant_boxes/ubuntu-14.04.02-i386-virtualbox.box'
+
+  # Ubuntu provides official vagrant box sources
+  # CAVEAT!! This is a nightly build...
+  # https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+
+  # But to be more generic we ideally want something like...
+  # config.vm.box_url = '{{vm_box_url}}'
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  config.vm.box_check_update = false
+
+  # HEADS UP! The vagrant-dns plugin is currently only supported on OS X
+  # https://github.com/BerlinVagrant/vagrant-dns/blob/master/PLATFORM_SUPPORT.md
+  if RUBY_PLATFORM =~ /darwin/i
+    if Vagrant.has_plugin?("vagrant-dns")
+      config.dns.tld = "ubxd.dev"
+      config.dns.patterns = [/^.*ubxd.dev$/]
+    else
+      puts "installing the vagrant-dns plugin is recommended"
+      puts "see https://github.com/BerlinVagrant/vagrant-dns for more."
+    end
+  end
+
+  ####################################
+  # BEGIN MACHINE DEFINITION SECTION #
+  ####################################
+
+  config.vm.define "dev-vm" do |dev|
+    #machine.vm.network "public_network", bridge: 'en0: Wi-Fi (AirPort)'
+    dev.vm.network :private_network, ip: '10.6.20.72'
+    dev.vm.hostname = "dev"
+    dev.ssh.forward_agent = true
+    dev.ssh.username = "vagrant"
+    dev.ssh.password = "vagrant"
+    dev.ssh.insert_key = false
+    dev.vm.synced_folder "../", "/var/ubxd"
+
+    # provision dev with the basics
+    # dev.vm.provision "shell", inline: $script
+
+    dev.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.customize ["modifyvm", :id, "--memory", "4096"]
+    end
+
+    # dev.vm.provision "ansible" do |ansible|
+    #   ansible.playbook = '../ansible/dev.yml'
+    #   ansible.inventory_path = '../ansible/dev'
+    #   ansible.verbose = 'vvvvv'
+    #   ansible.ask_sudo_pass = true
+    # end
+
+  end
+
+  ####################################
+  # -END- MACHINE DEFINITION SECTION #
+  ####################################
+
+end

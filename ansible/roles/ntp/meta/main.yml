@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: svenagnew
+  description: A simple ntp-server role
+  company: Unboxed Consulting (PTY) Ltd.
+  license: Copyright (c) 2015 Sven Agnew. All Rights Reserved.
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+      - trusty
+  categories:
+  - networking
+  - system
+dependencies: []
