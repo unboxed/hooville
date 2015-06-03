@@ -1,0 +1,5 @@
+.rspec
+hdp_manual**
+*.tar.gz
+vagrant/.vagrant
+packer/build
